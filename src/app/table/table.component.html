@@ -1,0 +1,45 @@
+<div class="conteiner">
+  <div>
+    <h1>ՈՒղղություններ</h1>
+  </div>
+  <div>
+    <button nz-button [nzType]="'primary'" [nzLoading]="isLoading"  (click)="showModal()"><span>Ավելացնել ուղղություններ</span></button>
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="ՈՒղղություն" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <ng-container *nzModalContent>
+        <!-- form select -->
+        <form nz-form [formGroup]="validateForm">
+          <nz-form-item>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select your wey!">
+              <nz-select formControlName="main_route"
+                nzPlaceHolder="Ընտրեք ուղղությունը" (ngModelChange)="cityChange($event)">
+                <nz-option [nzValue]="way.id" [nzLabel]="way.route_name" *ngFor = 'let way of req.way'></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </ng-container>
+    </nz-modal>
+  </div>
+</div>
+<!-- table -->
+<nz-table #middleTable nzSize="middle" [nzData]="data">
+  <thead>
+    <tr>
+      <th>N</th>
+      <th>ուղղություն</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngIf = "isVisible===false">
+      <tr *ngFor = "let dat of driving, let i = index">
+        <td>{{i+1}}</td>
+        <td>{{dat.main_route_details.route_name}}</td>
+        <td>
+          <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+           (click)="deleteRow(dat.id)">delete
+          </a>
+        </td>
+
+      </tr>
+  </tbody>
+</nz-table>

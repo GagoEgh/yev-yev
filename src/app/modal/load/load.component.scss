@@ -1,0 +1,26 @@
+
+.wrap-body{
+      position: fixed;
+      top:0;
+      left:0;
+      right: 0;
+      bottom: 0;
+      background-color:rgba(0,0,0,.3);
+      z-index:4;
+    }
+    
+    
+    .modal{
+      position: absolute;
+      left: 40%;
+      top:50%;
+      z-index: 3;
+    }
+    
+    .modal [nz-icon]{
+          position: relative;
+          font-size: 200px;
+          color:greenyellow;
+          z-index: 3;
+    }
+    

@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+body{
+      margin: 0;
+}
+
+.ant-form-item-label>label::after {
+      display: none;
+}
+
+

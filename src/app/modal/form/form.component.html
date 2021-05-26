@@ -1,0 +1,147 @@
+<i class="icon" nz-icon nzType="edit" nzTheme="outline" (click)="showModal()"></i>
+<nz-modal nzWidth='900px' [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()"
+      (nzOnOk)="handleOk()" >
+      <ng-container *nzModalContent>
+            <div class="nzForm">
+                  <nz-tabset>
+                        <nz-tab nzTitle="Tab 1" class="data">
+                              <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+                                    <div nz-row [nzGutter]="24">
+                                          <app-load [style.display]="myReq.isOnLoading?'block':'none'"></app-load>
+                                          <div nz-col [nzSpan]="12" class='col'>
+                                                <nz-form-label nzRequired [nzFor]="'Անուն'">Անուն </nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input [formControlName]="'first_name'"
+                                                                  [attr.id]="'Անուն'" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class='col'>
+                                                <nz-form-label nzRequired [nzFor]="'Ազգանուն'">Ազգանուն </nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input [formControlName]="'last_name'"
+                                                                  [attr.id]="'Ազգանուն'" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class='col'>
+                                                <nz-form-label nzRequired [nzFor]="'Հեռախոսահամար'">Հեռախոսահամար
+                                                </nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input [formControlName]="'phone_number'"
+                                                                  [attr.id]="'Հեռախոսահամար'" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class='col'>
+                                                <nz-form-label nzRequired [nzFor]="'Մեքենայի մոդելը'">Մեքենայի մոդելը
+                                                </nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input [formControlName]="'car_model'"
+                                                                  [attr.id]="'Մեքենայի մոդելը'" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class='col'>
+                                                <nz-form-label nzRequired [nzFor]="'Մեքենայի գույնի անունը հայերեն'">
+                                                      Մեքենայի գույնի անունը հայերեն</nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input [formControlName]="'car_color_name_hy'"
+                                                                  [attr.id]="'Մեքենայի գույնի անունը հայերեն'" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class='col'>
+                                                <nz-form-label nzRequired [nzFor]="'Մեքենայի գույնի անունը ռուսերեն'">
+                                                      Մեքենայի գույնի անունը ռուսերեն</nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input [formControlName]="'car_color_name_ru'"
+                                                                  [attr.id]="'Մեքենայի գույնի անունը ռուսերեն'" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class='col'>
+                                                <nz-form-label nzRequired [nzFor]="'Մեքենայի գույնի անունը անգլերեն'">
+                                                      Մեքենայի գույնի անունը անգլերեն</nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input [formControlName]="'car_color_name_en'"
+                                                                  [attr.id]="'Մեքենայի գույնի անունը անգլերեն'" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class='col'>
+                                                <nz-form-label nzRequired [nzFor]="'Մեքենայի նստատեղերի քանակը'">
+                                                      Մեքենայի նստատեղերի քանակը</nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input [formControlName]="'car_capacity'"
+                                                                  [attr.id]="'Մեքենայի նստատեղերի քանակը'" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class='col'>
+                                                <nz-form-label nzRequired [nzFor]="'Մեքենայի համարանիշը'">Մեքենայի
+                                                      համարանիշը</nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input [formControlName]="'car_number'"
+                                                                  [attr.id]="'Մեքենայի համարանիշը'" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class="col">
+                                                <nz-form-label nzRequired nzFor="Մեքենայի գույնը">Մեքենայի գույնը
+                                                </nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                                                            <input nz-input formControlName="car_color"
+                                                                  attr.id="Մեքենայի գույնը"
+                                                                  [colorPicker]="validateForm.get('car_color').value"
+                                                                  (colorPickerChange)="changeColorPicker('car_color',$event)"
+                                                                  [style.background]="validateForm.get('car_color').value"
+                                                                  [style.border-color]="validateForm.get('car_color').value" />
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class="col">
+                                                <nz-form-label nzRequired>Telegram</nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control>
+                                                            <nz-select formControlName="viber_id">
+                                                                  <nz-option [nzLabel]=" "></nz-option>
+                                                            </nz-select>
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                          <div nz-col [nzSpan]="12" class="col">
+                                                <nz-form-label nzRequired>Հիմնական քաղաք</nz-form-label>
+                                                <nz-form-item>
+                                                      <nz-form-control>
+                                                            <nz-select formControlName="main_city_id">
+                                                                  <nz-option *ngFor='let city of myReq.citys'
+                                                                        [nzValue]="city.id" [nzLabel]="city.name_hy">
+                                                                  </nz-option>
+                                                            </nz-select>
+                                                      </nz-form-control>
+                                                </nz-form-item>
+                                          </div>
+                                    </div>
+                              </form>
+                        </nz-tab>
+                        <nz-tab nzTitle="Tab 3">
+                              Content of Tab Pane 3
+                        </nz-tab>
+                  </nz-tabset>
+            </div>
+            <app-table [id]="driver_id" [driving]="driving"></app-table>
+      </ng-container>
+</nz-modal>
+
+

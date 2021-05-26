@@ -1,0 +1,96 @@
+
+.content{
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+}
+
+nz-select {
+      margin: 0 8px 10px 0;
+      width: 200px;
+ }
+
+.nzForm{
+      width: 90%;
+      margin: 0 auto;
+}
+
+.col input{
+      width: 100%;
+}
+
+.ant-advanced-search-form {
+      padding: 24px;
+      background: #fbfbfb;
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+}
+
+
+
+.search-result-list {
+      margin-top: 16px;
+      border: 1px dashed #e9e9e9;
+      border-radius: 6px;
+      background-color: #fafafa;
+      min-height: 200px;
+      text-align: center;
+      padding-top: 80px;
+}
+
+ [nz-form-label] {
+      overflow: visible;
+}
+
+.main{
+      padding: 5px;
+}
+
+.num {
+      padding: 15px;
+}
+.icon{
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 5px 0 5px;
+      
+}
+
+.active{
+      opacity: 0.5;
+}
+
+
+// .wrap-body{
+//   position: fixed;
+//   top:0;
+//   left:0;
+//   right: 0;
+//   bottom: 0;
+//   background-color:rgba(0,0,0,.4);
+//   z-index:3
+// }
+
+
+// .modal{
+//   position: absolute;
+//   left: 40%;
+//   top:50%;
+//   z-index: 3;
+// }
+
+// .modal [nz-icon]{
+//       position: absolute;
+//       font-size: 200px;
+//       color:greenyellow;
+//       z-index: 3;
+// }
+
+
+ 
+
+
+
+

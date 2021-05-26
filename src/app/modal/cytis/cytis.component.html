@@ -1,0 +1,19 @@
+
+<i class="btn" nz-icon nzType="edit" nzTheme="outline"  nz-button (click)="showModal()"></i>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Ուղևորման քաղաքը" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <app-load [style.display]="req.isOnLoading?'block':'none'"></app-load>
+      <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+            <nz-form-item>
+                  <nz-form-control>
+                    <nz-form-label nzRequired>քաղաք</nz-form-label>
+                    <nz-select formControlName="located_city_id"  >
+                      <nz-option *ngFor='let city of req.citys'
+                       [nzValue]="city.id" [nzLabel]="city.name_hy" >
+                      </nz-option>
+                    </nz-select>
+                  </nz-form-control>
+            </nz-form-item>
+      </form>
+  </ng-container>
+</nz-modal>
