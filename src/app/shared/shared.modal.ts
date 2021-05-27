@@ -12,6 +12,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @NgModule({
       declarations: [],
@@ -35,7 +36,8 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
             NzMessageModule,
             NzPaginationModule,
             NzIconModule,
-            NzSwitchModule
+            NzSwitchModule,
+            NzInputModule
            
       ]
 

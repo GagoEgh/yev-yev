@@ -32,24 +32,54 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.comboneObservable()
     this.validateForm = this.fb.group({
-      first_name:[null,[Validators.required]],
-      last_name:[null,[Validators.required]],
-      phone_number:[null,[Validators.required]],
-      car_model:[null,[Validators.required]],
-      car_color_name_hy:[null,[Validators.required]],
-      car_color_name_ru:[null,[Validators.required]],
-      car_color_name_en:[null,[Validators.required]],
-      car_capacity:[null,[Validators.required]],
-      car_number:[null,[Validators.required]],
-      car_color:[null,[Validators.required]],
-      main_city_id:[null],
-      viber_id:[null],
+      first_name: [null, [Validators.required, this.onlyLetters]],
+      last_name: [null, [Validators.required, this.onlyLetters]],
+      phone_number: [null, [Validators.required,this.onlyNumber]],
+      car_model: [null, [Validators.required]],
+      car_color_name_hy: [null, [Validators.required]],
+      car_color_name_ru: [null, [Validators.required]],
+      car_color_name_en: [null, [Validators.required]],
+      car_capacity: [null, [Validators.required]],
+      car_number: [null, [Validators.required]],
+      car_color: [null, [Validators.required]],
+      main_city_id: [null],
+      viber_id: [null],
     });
-   
-     this.showTable().subscribe();
+
+    this.showTable().subscribe();
 
   }
 
+  errorLast: string;
+ 
+
+  onlyNumber(control:FormControl) {
+    let regExp=/[a-z,~!@#$%^&*()_+=|\\}{[\]"':;?>.<,]/giu;
+    if(regExp.test(control.value)){
+      return{
+        numberError:true
+      }
+    }
+    return null
+  }
+
+  errorName(formName: string) {
+    if (this.validateForm.get(formName).hasError('required')) this.errorLast = 'Լռացրեք տվյալ դաշտը';
+    else if (this.validateForm.get(formName).hasError('lettersErrore')) this.errorLast = 'գրեք միայն տառ';
+    else if(this.validateForm.get(formName).hasError('numberError')) this.errorLast = 'գրեք միայն թիվ';
+    else this.errorLast = '';
+    return this.errorLast;
+  }
+
+  onlyLetters(control: FormControl) {
+    let regexp = /[0-9]/;
+    if (regexp.test(control.value)) {
+      return {
+        lettersErrore: true
+      }
+    }
+    return null;
+  }
 
   showModal(): void {
     this.isVisible = true;
@@ -82,6 +112,8 @@ export class AppComponent implements OnInit {
 
     this.validateForm.get(controlName).setValue(event)
   }
+
+
 
   handleOk(type: string) {
     if (this.validateForm.invalid) {
@@ -150,7 +182,7 @@ export class AppComponent implements OnInit {
         })
 
       this.myReq.isOnLoading = true;
-      
+
     } else {
 
       this.myReq.serchUser()
@@ -167,13 +199,13 @@ export class AppComponent implements OnInit {
   modelCahnge(el: any) {
     this.myReq.drivingSearch(this.drivingId).
       subscribe((item: any) => {
-        this.myReq.pageIndex=1;
+        this.myReq.pageIndex = 1;
         this.myReq.total = item.count;
         this.myReq.isOnLoading = false;
         this.myReq.tabelItem = item.results;
         this.myReq.num = ((this.myReq.pageIndex - 1) * this.myReq.pageSize + 1);
         this.myReq.num = 1;
-        this.myReq.pageSize=10;
+        this.myReq.pageSize = 10;
 
       })
 

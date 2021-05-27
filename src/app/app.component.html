@@ -1,94 +1,137 @@
-<div class="conteiner" >
+<div class="conteiner">
   <div class="content">
     <div>
       <h1>Վարորդներ</h1>
     </div>
     <div>
-      <nz-select [nzPlaceHolder]="'ընտրեք ուղղությունը'" [(ngModel)] = "drivingId"
-       (ngModelChange)="modelCahnge($event)">
+      <nz-select [nzPlaceHolder]="'ընտրեք ուղղությունը'" [(ngModel)]="drivingId" (ngModelChange)="modelCahnge($event)">
         <nz-option [nzValue]="item.id" [nzLabel]="item.route_name" *ngFor='let item of myReq.way'></nz-option>
       </nz-select>
     </div>
     <div>
-      <button nz-button  (click)="showModal()"><span>Ավելացնել Վարորդ</span></button>
-      <nz-modal  nzWidth='900px' [(nzVisible)]="isVisible" nzTitle="Վարորդ" (nzOnCancel)="handleCancel()"
+      <button nz-button (click)="showModal()"><span>Ավելացնել Վարորդ</span></button>
+      <nz-modal nzWidth='900px' [(nzVisible)]="isVisible" nzTitle="Վարորդ" (nzOnCancel)="handleCancel()"
         (nzOnOk)="handleOk('error')" nzCancelText='փակել' nzOkText='հաստատել'>
-        <ng-container *nzModalContent >
+        <ng-container *nzModalContent>
           <div class="nzForm">
             <app-load [style.display]="myReq.isOnLoading?'block':'none'"></app-load>
             <nz-tabset>
               <nz-tab nzTitle="Տվյալներ" class="data">
                 <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
                   <div nz-row [nzGutter]="24">
-                    <div nz-col [nzSpan]="12" class='col'>    
-                      <nz-form-label nzRequired [nzFor]="Անուն">Անուն</nz-form-label>
+                    <div nz-col [nzSpan]="12" class='col'>
+                      <nz-form-label nzRequired nzFor="Անուն">Անուն</nz-form-label>
                       <nz-form-item>
-                        <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                        <nz-form-control [nzErrorTip]="errore1" nzHasFeedback>
                           <input nz-input formControlName="first_name" attr.id="Անուն" />
                         </nz-form-control>
                       </nz-form-item>
+                      <ng-template #errore1>
+                        <p *ngIf="errorName('first_name')">
+                          {{errorLast}}
+                        </p>
+                      </ng-template>
                     </div>
-                    <div nz-col [nzSpan]="12" class='col'>    
-                      <nz-form-label nzRequired [nzFor]="Ազգանուն">Ազգանուն</nz-form-label>
+                    <div nz-col [nzSpan]="12" class='col'>
+                      <nz-form-label nzRequired nzFor="Ազգանուն">Ազգանուն</nz-form-label>
                       <nz-form-item>
-                        <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
-                          <input nz-input formControlName="last_name'" attr.id="Ազգանուն" />
+                        <nz-form-control [nzErrorTip]="errore2" nzHasFeedback>
+                          <input nz-input formControlName="last_name" attr.id="Ազգանուն" />
                         </nz-form-control>
                       </nz-form-item>
+                      <ng-template #errore2>
+                        <p *ngIf="errorName('last_name')">
+                          {{errorLast}}
+                        </p>
+                      </ng-template>
                     </div>
-                    <div nz-col [nzSpan]="12" class='col'>    
-                      <nz-form-label nzRequired [nzFor]="Հեռախոսահամար">Հեռախոսահամար</nz-form-label>
+                    <div nz-col [nzSpan]="12" class='col'>
+                      <!-- <nz-form-label nzRequired nzFor="Հեռախոսահամար">Հեռախոսահամար</nz-form-label>
                       <nz-form-item>
-                        <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                        <nz-form-control [nzErrorTip]="errore3" nzHasFeedback>
                           <input nz-input formControlName="phone_number" attr.id="Հեռախոսահամար" />
                         </nz-form-control>
                       </nz-form-item>
+                      <ng-template #errore3>
+                          <p *ngIf = "errorName('phone_number')">
+                            {{errorLast}}
+                          </p>
+                      </ng-template>
+                    
+                       <nz-form-control>
+                          <nz-select formControlName="main_city_id">
+                            <nz-option *ngFor='let city of myReq.citys' [nzValue]="city.id" [nzLabel]="city.name_hy">
+                            </nz-option>
+                          </nz-select>
+                        </nz-form-control>
+                    
+                    -->
+                      <div>
+                        <nz-form-label nzRequired nzFor="Հեռախոսահամար">Հեռախոսահամար</nz-form-label>
+                        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" [nzAddOnAfter]="addOnAfterTemplate">
+                          <input type="text" nz-input formControlName="phone_number" attr.id="Հեռախոսահամար"   />
+                        </nz-input-group>
+                        <ng-template #addOnBeforeTemplate >
+                          <nz-select >
+                            <nz-option nzLabel="077" nzValue="077"></nz-option>
+                            <nz-option nzLabel="093" nzValue="093"></nz-option>
+                          </nz-select>
+                        </ng-template>
+                        
+                      </div>
                     </div>
-                    <div nz-col [nzSpan]="12" class='col'>    
-                      <nz-form-label nzRequired [nzFor]="Մեքենայի մոդելը">Մեքենայի մոդելը</nz-form-label>
+                    <div nz-col [nzSpan]="12" class='col'>
+                      <nz-form-label nzRequired nzFor="Մեքենայի մոդելը">Մեքենայի մոդելը</nz-form-label>
                       <nz-form-item>
                         <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
                           <input nz-input formControlName="car_model" attr.id="Մեքենայի մոդելը" />
                         </nz-form-control>
                       </nz-form-item>
                     </div>
-                    <div nz-col [nzSpan]="12" class='col'>    
-                      <nz-form-label nzRequired [nzFor]="Մեքենայի գույնի անունը հայերեն">Մեքենայի գույնի անունը հայերեն</nz-form-label>
+                    <div nz-col [nzSpan]="12" class='col'>
+                      <nz-form-label nzRequired nzFor="Մեքենայի գույնի անունը հայերեն">Մեքենայի գույնի անունը հայերեն
+                      </nz-form-label>
                       <nz-form-item>
                         <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
-                          <input nz-input formControlName="car_color_name_hy" attr.id="Մեքենայի գույնի անունը հայերեն" />
+                          <input nz-input formControlName="car_color_name_hy"
+                            attr.id="Մեքենայի գույնի անունը հայերեն" />
                         </nz-form-control>
                       </nz-form-item>
                     </div>
-                    <div nz-col [nzSpan]="12" class='col'>    
-                      <nz-form-label nzRequired [nzFor]="Մեքենայի գույնի անունը ռուսերեն">Մեքենայի գույնի անունը ռուսերեն</nz-form-label>
+                    <div nz-col [nzSpan]="12" class='col'>
+                      <nz-form-label nzRequired nzFor="Մեքենայի գույնի անունը ռուսերեն">Մեքենայի գույնի անունը ռուսերեն
+                      </nz-form-label>
                       <nz-form-item>
                         <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
-                          <input nz-input formControlName="car_color_name_ru" attr.id="Մեքենայի գույնի անունը ռուսերեն" />
+                          <input nz-input formControlName="car_color_name_ru"
+                            attr.id="Մեքենայի գույնի անունը ռուսերեն" />
                         </nz-form-control>
                       </nz-form-item>
                     </div>
-                    <div nz-col [nzSpan]="12" class='col'>    
-                      <nz-form-label nzRequired [nzFor]="Մեքենայի գույնի անունը անգլերեն">Մեքենայի գույնի անունը անգլերեն</nz-form-label>
+                    <div nz-col [nzSpan]="12" class='col'>
+                      <nz-form-label nzRequired nzFor="Մեքենայի գույնի անունը անգլերեն">Մեքենայի գույնի անունը անգլերեն
+                      </nz-form-label>
                       <nz-form-item>
                         <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
-                          <input nz-input formControlName="car_color_name_en" attr.id="Մեքենայի գույնի անունը անգլերեն" />
+                          <input nz-input formControlName="car_color_name_en"
+                            attr.id="Մեքենայի գույնի անունը անգլերեն" />
                         </nz-form-control>
                       </nz-form-item>
                     </div>
-                    <div nz-col [nzSpan]="12" class='col'>    
-                      <nz-form-label nzRequired [nzFor]="Մեքենայի նստատեղերի քանակը">Մեքենայի նստատեղերի քանակը</nz-form-label>
+                    <div nz-col [nzSpan]="12" class='col'>
+                      <nz-form-label nzRequired nzFor="Մեքենայի նստատեղերի քանակը">Մեքենայի նստատեղերի քանակը
+                      </nz-form-label>
                       <nz-form-item>
                         <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
-                          <input nz-input formControlName="car_capacity" attr.id="Մեքենայի նստատեղերի քանակը"/>
+                          <input nz-input formControlName="car_capacity" attr.id="Մեքենայի նստատեղերի քանակը" />
                         </nz-form-control>
                       </nz-form-item>
                     </div>
-                    <div nz-col [nzSpan]="12" class='col'>    
-                      <nz-form-label nzRequired [nzFor]="Մեքենայի համարանիշը">Մեքենայի համարանիշը</nz-form-label>
+                    <div nz-col [nzSpan]="12" class='col'>
+                      <nz-form-label nzRequired nzFor="Մեքենայի համարանիշը">Մեքենայի համարանիշը</nz-form-label>
                       <nz-form-item>
                         <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
-                          <input nz-input formControlName="car_number" attr.id="Մեքենայի համարանիշը"/>
+                          <input nz-input formControlName="car_number" attr.id="Մեքենայի համարանիշը" />
                         </nz-form-control>
                       </nz-form-item>
                     </div>
@@ -97,11 +140,10 @@
                       <nz-form-item>
                         <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
                           <input nz-input formControlName="car_color" attr.id="Մեքենայի գույնը"
-                          [colorPicker]="validateForm.get('car_color').value"
-                          (colorPickerChange)="changeColorPicker('car_color',$event)"
-                          [style.background]="validateForm.get('car_color').value"
-                          [style.border-color]="validateForm.get('car_color').value"
-                           />
+                            [colorPicker]="validateForm.get('car_color').value"
+                            (colorPickerChange)="changeColorPicker('car_color',$event)"
+                            [style.background]="validateForm.get('car_color').value"
+                            [style.border-color]="validateForm.get('car_color').value" />
                         </nz-form-control>
                       </nz-form-item>
                     </div>
@@ -139,8 +181,8 @@
 </div>
 
 <div class="main">
-  <nz-table  nzSize="middle" nzBordered (nzPageIndexChange)="nzPageIndexChange($event)"
-   [nzData]="myReq.tabelItem" [nzTotal]="myReq.total" [nzPageSize]="myReq.pageSize" [nzPageIndex]="myReq.pageIndex"  [nzFrontPagination]="false">
+  <nz-table nzSize="middle" nzBordered (nzPageIndexChange)="nzPageIndexChange($event)" [nzData]="myReq.tabelItem"
+    [nzTotal]="myReq.total" [nzPageSize]="myReq.pageSize" [nzPageIndex]="myReq.pageIndex" [nzFrontPagination]="false">
     <thead [ngClass]="{'tb':minCount}">
       <tr>
         <th nzWidth="3%">N</th>
@@ -154,24 +196,28 @@
         <th nzWidth="4%"></th>
       </tr>
     </thead>
-    <tbody >
-      <tr  *ngFor="let data of myReq.tabelItem,let i = index" 
-      [ngClass] = "{'active':!data.user.is_active}">
+    <tbody>
+      <tr *ngFor="let data of myReq.tabelItem,let i = index" [ngClass]="{'active':!data.user.is_active}">
         <dt class="num">{{myReq.num+i}}</dt>
         <td>{{ data.user.first_name }}</td>
         <td>{{ data.user.last_name }}</td>
         <td>{{ data.phone_number }}</td>
-        <td>{{data.driving_routes[0]?.main_route_details?.route_name}}  </td>
+        <td>{{data.driving_routes[0]?.main_route_details?.route_name}} </td>
         <td>{{data?.located_city?.name_hy}}</td>
         <td>
           <div class="icon">
             <p>{{data?.located_city?.name_hy}}</p>
-            <app-cytis [id] = "data?.id"></app-cytis>
-         
-          </div></td>
-          
-        <td><app-form [id] = "data?.id"  [driving]="data?.driving_routes"   ></app-form></td> 
-        <td><nz-switch  [(ngModel)]= "data.user.is_active" (ngModelChange) = "changeActive(data.id,$event)"></nz-switch></td>
+            <app-cytis [id]="data?.id"></app-cytis>
+
+          </div>
+        </td>
+
+        <td>
+          <app-form [id]="data?.id" [driving]="data?.driving_routes"></app-form>
+        </td>
+        <td>
+          <nz-switch [(ngModel)]="data.user.is_active" (ngModelChange)="changeActive(data.id,$event)"></nz-switch>
+        </td>
       </tr>
 
     </tbody>

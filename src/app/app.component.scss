@@ -62,34 +62,14 @@ nz-select {
       opacity: 0.5;
 }
 
+nz-select {
+      width: 90px;
+}
 
-// .wrap-body{
-//   position: fixed;
-//   top:0;
-//   left:0;
-//   right: 0;
-//   bottom: 0;
-//   background-color:rgba(0,0,0,.4);
-//   z-index:3
-// }
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+      padding-right: 0;
+  }
 
-
-// .modal{
-//   position: absolute;
-//   left: 40%;
-//   top:50%;
-//   z-index: 3;
-// }
-
-// .modal [nz-icon]{
-//       position: absolute;
-//       font-size: 200px;
-//       color:greenyellow;
-//       z-index: 3;
-// }
-
-
- 
 
 
 
