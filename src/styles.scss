@@ -10,8 +10,16 @@ body{
 
 
 
-
 .ant-input-group-addon .ant-select.ant-select-single .ant-select-arrow {   
    left: 10% !important;
 }
-            
+
+
+.ant-input-group-addon .ant-select.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+      background-color: inherit;
+      border: 1px solid important;
+      box-shadow: none;
+      width: 90px;
+  }
+
+        

@@ -46,40 +46,32 @@
                       </ng-template>
                     </div>
                     <div nz-col [nzSpan]="12" class='col'>
-                      <!-- <nz-form-label nzRequired nzFor="Հեռախոսահամար">Հեռախոսահամար</nz-form-label>
-                      <nz-form-item>
-                        <nz-form-control [nzErrorTip]="errore3" nzHasFeedback>
-                          <input nz-input formControlName="phone_number" attr.id="Հեռախոսահամար" />
-                        </nz-form-control>
-                      </nz-form-item>
-                      <ng-template #errore3>
+                      <div>
+                        <nz-form-label nzRequired nzFor="Հեռախոսահամար">Հեռախոսահամար</nz-form-label>
+                        <nz-form-item>
+                          <nz-form-control [nzErrorTip]="errore3" nzHasFeedback>
+                            <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" 
+                              [nzAddOnAfter]="addOnAfterTemplate">
+                            <input type="text" nz-input attr.id="Հեռախոսահամար"  formControlName="phone_number"/>
+                            </nz-input-group>
+                          </nz-form-control>
+                        </nz-form-item>
+                        <ng-template #addOnBeforeTemplate>
+                          <nz-select nzPlaceHolder="code" formControlName = "phone_code">
+                            <nz-option [nzLabel]="codes.code" *ngFor = "let codes of phoneNumber"  [nzValue]="codes.id"  >
+                          </nz-option>
+                          </nz-select>
+                        </ng-template>
+                        <ng-template #errore3>
                           <p *ngIf = "errorName('phone_number')">
                             {{errorLast}}
                           </p>
-                      </ng-template>
-                    
-                       <nz-form-control>
-                          <nz-select formControlName="main_city_id">
-                            <nz-option *ngFor='let city of myReq.citys' [nzValue]="city.id" [nzLabel]="city.name_hy">
-                            </nz-option>
-                          </nz-select>
-                        </nz-form-control>
-                    
-                    -->
-                      <div>
-                        <nz-form-label nzRequired nzFor="Հեռախոսահամար">Հեռախոսահամար</nz-form-label>
-                        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" [nzAddOnAfter]="addOnAfterTemplate">
-                          <input type="text" nz-input formControlName="phone_number" attr.id="Հեռախոսահամար"   />
-                        </nz-input-group>
-                        <ng-template #addOnBeforeTemplate >
-                          <nz-select >
-                            <nz-option nzLabel="077" nzValue="077"></nz-option>
-                            <nz-option nzLabel="093" nzValue="093"></nz-option>
-                          </nz-select>
                         </ng-template>
-                        
                       </div>
                     </div>
+
+
+
                     <div nz-col [nzSpan]="12" class='col'>
                       <nz-form-label nzRequired nzFor="Մեքենայի մոդելը">Մեքենայի մոդելը</nz-form-label>
                       <nz-form-item>

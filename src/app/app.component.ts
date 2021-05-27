@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -22,8 +22,6 @@ export class AppComponent implements OnInit {
   cityName: string;
   cityId: number;
 
-
-
   constructor(private http: HttpClient,
     private fb: FormBuilder,
     public myReq: MyRequestService,
@@ -34,7 +32,8 @@ export class AppComponent implements OnInit {
     this.validateForm = this.fb.group({
       first_name: [null, [Validators.required, this.onlyLetters]],
       last_name: [null, [Validators.required, this.onlyLetters]],
-      phone_number: [null, [Validators.required,this.onlyNumber]],
+      phone_number: [null, [Validators.required, this.onlyNumber, this.numberLength]],
+      phone_code:[null,[Validators.required]],
       car_model: [null, [Validators.required]],
       car_color_name_hy: [null, [Validators.required]],
       car_color_name_ru: [null, [Validators.required]],
@@ -51,24 +50,37 @@ export class AppComponent implements OnInit {
   }
 
   errorLast: string;
- 
+  phoneNumber = [{id:1,code:'091'},{id:2,code:'096'},{id:3,code:'099'},{id:4,code:'043'},
+  {id:5,code:'077'},{id:6,code:'093'},{id:7,code:'094'},{id:8,code:'098'},{id:9,code:'049'},
+  {id:10,code:'055'},{id:11,code:'095'},{id:12,code:'041'}];
+  code: string;
+  errorName(formName: string) {
+    if (this.validateForm.get(formName).hasError('required')) this.errorLast = 'Լռացրեք տվյալ դաշտը';
+    else if (this.validateForm.get(formName).hasError('lettersErrore')) this.errorLast = 'գրեք միայն տառ';
+    else if (this.validateForm.get(formName).hasError('numberError')) this.errorLast = 'գրեք միայն թիվ';
+    else if (this.validateForm.get(formName).hasError('lengthErrore')) this.errorLast = 'նման համար գոյություն չունի';
+    else this.errorLast = '';
+    return this.errorLast;
+  }
 
-  onlyNumber(control:FormControl) {
-    let regExp=/[a-z,~!@#$%^&*()_+=|\\}{[\]"':;?>.<,]/giu;
-    if(regExp.test(control.value)){
-      return{
-        numberError:true
+
+  numberLength(control: FormControl) {
+    if (control.value && control.value.length != 6) {
+      return {
+        lengthErrore: true
       }
     }
     return null
   }
 
-  errorName(formName: string) {
-    if (this.validateForm.get(formName).hasError('required')) this.errorLast = 'Լռացրեք տվյալ դաշտը';
-    else if (this.validateForm.get(formName).hasError('lettersErrore')) this.errorLast = 'գրեք միայն տառ';
-    else if(this.validateForm.get(formName).hasError('numberError')) this.errorLast = 'գրեք միայն թիվ';
-    else this.errorLast = '';
-    return this.errorLast;
+  onlyNumber(control: FormControl) {
+    let regExp = /[a-z,~!@#$%^&*()_+=|\\}{[\]"':;?>.<,]/giu;
+    if (regExp.test(control.value)) {
+      return {
+        numberError: true
+      }
+    }
+    return null
   }
 
   onlyLetters(control: FormControl) {
@@ -117,6 +129,8 @@ export class AppComponent implements OnInit {
 
   handleOk(type: string) {
     if (this.validateForm.invalid) {
+      console.log(this.validateForm.value.phone_code);
+    
       this.message.create(type, 'Գործողությունը ձախողված է');
       return
     }
@@ -137,6 +151,7 @@ export class AppComponent implements OnInit {
       viber_id: null
 
     }
+
 
     this.myReq.userdetails(user).pipe(
       switchMap((val: any) => { return this.showTable() })

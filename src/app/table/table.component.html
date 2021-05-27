@@ -10,7 +10,7 @@
         <form nz-form [formGroup]="validateForm">
           <nz-form-item>
             <nz-form-control [nzSpan]="24" nzErrorTip="Please select your wey!">
-              <nz-select formControlName="main_route"
+              <nz-select class="nzSelect" formControlName="main_route"
                 nzPlaceHolder="Ընտրեք ուղղությունը" (ngModelChange)="cityChange($event)">
                 <nz-option [nzValue]="way.id" [nzLabel]="way.route_name" *ngFor = 'let way of req.way'></nz-option>
               </nz-select>
