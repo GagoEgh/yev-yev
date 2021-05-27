@@ -54,7 +54,9 @@ export class AppComponent implements OnInit {
   {id:5,code:'077'},{id:6,code:'093'},{id:7,code:'094'},{id:8,code:'098'},{id:9,code:'049'},
   {id:10,code:'055'},{id:11,code:'095'},{id:12,code:'041'}];
   code: string;
+
   errorName(formName: string) {
+   
     if (this.validateForm.get(formName).hasError('required')) this.errorLast = 'Լռացրեք տվյալ դաշտը';
     else if (this.validateForm.get(formName).hasError('lettersErrore')) this.errorLast = 'գրեք միայն տառ';
     else if (this.validateForm.get(formName).hasError('numberError')) this.errorLast = 'գրեք միայն թիվ';
@@ -129,11 +131,17 @@ export class AppComponent implements OnInit {
 
   handleOk(type: string) {
     if (this.validateForm.invalid) {
-      console.log(this.validateForm.value.phone_code);
+     
     
+      console.log(this.validateForm.value.phone_code);
+      console.log(this.validateForm.value.phone_number);
+     // console.log(p)
       this.message.create(type, 'Գործողությունը ձախողված է');
       return
     }
+    let cod = this.validateForm.get('phone_code').value;
+    let tell = this.validateForm.get('phone_number').value;
+    let p = cod+ tell;
     const user: User = {
       car_capacity: this.validateForm.value.car_capacity,
       car_color: this.validateForm.value.car_color,
@@ -147,7 +155,7 @@ export class AppComponent implements OnInit {
       last_name: this.validateForm.value.last_name,
       located_city_id: this.validateForm.value.main_city_id,
       main_city_id: this.validateForm.value.main_city_id,
-      phone_number: this.validateForm.value.phone_number,
+      phone_number: p,//this.validateForm.value.phone_number,
       viber_id: null
 
     }

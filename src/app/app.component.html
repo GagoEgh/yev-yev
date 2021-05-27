@@ -58,7 +58,7 @@
                         </nz-form-item>
                         <ng-template #addOnBeforeTemplate>
                           <nz-select nzPlaceHolder="code" formControlName = "phone_code">
-                            <nz-option [nzLabel]="codes.code" *ngFor = "let codes of phoneNumber"  [nzValue]="codes.id"  >
+                            <nz-option [nzLabel]="codes.code" *ngFor = "let codes of phoneNumber"  [nzValue]="codes.code"  >
                           </nz-option>
                           </nz-select>
                         </ng-template>
