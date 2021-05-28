@@ -33,7 +33,7 @@
   <tbody *ngIf = "isVisible===false">
       <tr *ngFor = "let dat of driving, let i = index">
         <td>{{i+1}}</td>
-        <td>{{dat.main_route_details.route_name}}</td>
+        <td>{{dat?.main_route_details?.route_name}}</td>
         <td>
           <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
            (click)="deleteRow(dat.id)">delete

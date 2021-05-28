@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -32,16 +32,16 @@ export class AppComponent implements OnInit {
     this.validateForm = this.fb.group({
       first_name: [null, [Validators.required, this.onlyLetters]],
       last_name: [null, [Validators.required, this.onlyLetters]],
-      phone_number: [null, [Validators.required, this.onlyNumber, this.numberLength]],
-      phone_code:[null,[Validators.required]],
+      phone: [null, [Validators.required, this.onlyNumber, this.numberLength]],
+      phone_code: ['091', [Validators.required]],
       car_model: [null, [Validators.required]],
       car_color_name_hy: [null, [Validators.required]],
       car_color_name_ru: [null, [Validators.required]],
       car_color_name_en: [null, [Validators.required]],
-      car_capacity: [null, [Validators.required]],
-      car_number: [null, [Validators.required]],
+      car_capacity: [null, [Validators.required,this.onlyNumber,Validators.maxLength(1)]],
+      car_number: [null, [Validators.required,this.amAutoNum]],
       car_color: [null, [Validators.required]],
-      main_city_id: [null],
+      main_city_id: [null,[Validators.required]],
       viber_id: [null],
     });
 
@@ -50,21 +50,32 @@ export class AppComponent implements OnInit {
   }
 
   errorLast: string;
-  phoneNumber = [{id:1,code:'091'},{id:2,code:'096'},{id:3,code:'099'},{id:4,code:'043'},
-  {id:5,code:'077'},{id:6,code:'093'},{id:7,code:'094'},{id:8,code:'098'},{id:9,code:'049'},
-  {id:10,code:'055'},{id:11,code:'095'},{id:12,code:'041'}];
-  code: string;
+  phoneNumber = [{ id: 1, code: '091' }, { id: 2, code: '096' }, { id: 3, code: '099' }, { id: 4, code: '043' },
+  { id: 5, code: '077' }, { id: 6, code: '093' }, { id: 7, code: '094' }, { id: 8, code: '098' }, { id: 9, code: '049' },
+  { id: 10, code: '055' }, { id: 11, code: '095' }, { id: 12, code: '041' }];
+
 
   errorName(formName: string) {
-   
+
     if (this.validateForm.get(formName).hasError('required')) this.errorLast = 'Լռացրեք տվյալ դաշտը';
     else if (this.validateForm.get(formName).hasError('lettersErrore')) this.errorLast = 'գրեք միայն տառ';
     else if (this.validateForm.get(formName).hasError('numberError')) this.errorLast = 'գրեք միայն թիվ';
     else if (this.validateForm.get(formName).hasError('lengthErrore')) this.errorLast = 'նման համար գոյություն չունի';
+    else if(this.validateForm.get(formName).hasError('numAmErrore')) this.errorLast = 'ավտոհամարանիշը սխալ է';
+    else if(this.validateForm.get(formName).hasError('maxlength')) this.errorLast = 'պետք է լինի միանիշ թիվ'
     else this.errorLast = '';
     return this.errorLast;
   }
 
+  amAutoNum(control: FormControl) {
+    let regExp = /^([0-9]{2})([A-Z]{2})([0-9]{3})$/;
+    if(!regExp.test(control.value)){
+      return {
+        numAmErrore:true
+      }
+    }
+    return null;
+  }
 
   numberLength(control: FormControl) {
     if (control.value && control.value.length != 6) {
@@ -96,6 +107,7 @@ export class AppComponent implements OnInit {
   }
 
   showModal(): void {
+
     this.isVisible = true;
   }
 
@@ -131,17 +143,12 @@ export class AppComponent implements OnInit {
 
   handleOk(type: string) {
     if (this.validateForm.invalid) {
-     
-    
-      console.log(this.validateForm.value.phone_code);
-      console.log(this.validateForm.value.phone_number);
-     // console.log(p)
       this.message.create(type, 'Գործողությունը ձախողված է');
       return
     }
     let cod = this.validateForm.get('phone_code').value;
-    let tell = this.validateForm.get('phone_number').value;
-    let p = cod+ tell;
+    let tell = this.validateForm.get('phone').value;
+    let p = cod + tell;
     const user: User = {
       car_capacity: this.validateForm.value.car_capacity,
       car_color: this.validateForm.value.car_color,
@@ -155,7 +162,7 @@ export class AppComponent implements OnInit {
       last_name: this.validateForm.value.last_name,
       located_city_id: this.validateForm.value.main_city_id,
       main_city_id: this.validateForm.value.main_city_id,
-      phone_number: p,//this.validateForm.value.phone_number,
+      phone_number: p,
       viber_id: null
 
     }
@@ -167,6 +174,8 @@ export class AppComponent implements OnInit {
       this.myReq.isOnLoading = false;
       this.isVisible = false;
       this.resetForm();
+      this.validateForm.get('phone_code').setValue('091')
+
     })
     this.myReq.isOnLoading = true;
 
@@ -175,6 +184,8 @@ export class AppComponent implements OnInit {
   handleCancel(): void {
 
     this.isVisible = false;
+    this.resetForm();
+    this.validateForm.get('phone_code').setValue('091')
   }
 
   resetForm(): void {

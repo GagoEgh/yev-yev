@@ -51,6 +51,7 @@ nz-select {
 .num {
       padding: 15px;
 }
+
 .icon{
       display: flex;
       justify-content: space-between;
@@ -67,8 +68,19 @@ nz-select {
 .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
       padding-right: 0;
 
-  }
+}
 
+.ant-select {
+      padding-left: 0;
+      font-size: 14px;
+      font-variant: tabular-nums;
+      line-height: 1.5715;
+      list-style: none;
+      font-feature-settings: 'tnum';
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+}
 
 
 

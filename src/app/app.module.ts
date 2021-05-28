@@ -5,16 +5,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterseptor } from './auth.interseptor';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
-import { TableComponent } from './table/table.component';
 import { SharedModule } from './shared/shared.modal';
-import { CytisComponent } from './modal/cytis/citys.component';
 import { RouterModule } from '@angular/router';
 import { ModalModule } from './modal/modal.module';
 import { FormsModule } from '@angular/forms';
-
-
-
-
 
 const INTERSEPTOR_PROVIDER:Provider={
   provide:HTTP_INTERCEPTORS,
@@ -22,11 +16,9 @@ const INTERSEPTOR_PROVIDER:Provider={
   multi:true
 }
 
-
 @NgModule({
   declarations: [
     AppComponent,
-    
      
   ],
   imports: [

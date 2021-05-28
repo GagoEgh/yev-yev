@@ -50,28 +50,25 @@
                         <nz-form-label nzRequired nzFor="Հեռախոսահամար">Հեռախոսահամար</nz-form-label>
                         <nz-form-item>
                           <nz-form-control [nzErrorTip]="errore3" nzHasFeedback>
-                            <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" 
-                              [nzAddOnAfter]="addOnAfterTemplate">
-                            <input type="text" nz-input attr.id="Հեռախոսահամար"  formControlName="phone_number"/>
+                            <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" [nzAddOnAfter]="addOnAfterTemplate">
+                              <input type="text" nz-input attr.id="Հեռախոսահամար" formControlName="phone" />
                             </nz-input-group>
+                            <ng-template #addOnBeforeTemplate>
+                              <nz-select  formControlName="phone_code">
+                                <nz-option [nzLabel]="codes.code" *ngFor="let codes of phoneNumber"
+                                  [nzValue]="codes.code">
+                                </nz-option>
+                              </nz-select>
+                            </ng-template>
                           </nz-form-control>
                         </nz-form-item>
-                        <ng-template #addOnBeforeTemplate>
-                          <nz-select nzPlaceHolder="code" formControlName = "phone_code">
-                            <nz-option [nzLabel]="codes.code" *ngFor = "let codes of phoneNumber"  [nzValue]="codes.code"  >
-                          </nz-option>
-                          </nz-select>
-                        </ng-template>
                         <ng-template #errore3>
-                          <p *ngIf = "errorName('phone_number')">
+                          <p *ngIf="errorName('phone')">
                             {{errorLast}}
                           </p>
                         </ng-template>
                       </div>
                     </div>
-
-
-
                     <div nz-col [nzSpan]="12" class='col'>
                       <nz-form-label nzRequired nzFor="Մեքենայի մոդելը">Մեքենայի մոդելը</nz-form-label>
                       <nz-form-item>
@@ -114,18 +111,28 @@
                       <nz-form-label nzRequired nzFor="Մեքենայի նստատեղերի քանակը">Մեքենայի նստատեղերի քանակը
                       </nz-form-label>
                       <nz-form-item>
-                        <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                        <nz-form-control [nzErrorTip]="errore4" nzHasFeedback>
                           <input nz-input formControlName="car_capacity" attr.id="Մեքենայի նստատեղերի քանակը" />
                         </nz-form-control>
                       </nz-form-item>
+                      <ng-template #errore4>
+                        <p *ngIf = "errorName('car_capacity')">
+                          {{errorLast}}
+                        </p>
+                      </ng-template>
                     </div>
                     <div nz-col [nzSpan]="12" class='col'>
                       <nz-form-label nzRequired nzFor="Մեքենայի համարանիշը">Մեքենայի համարանիշը</nz-form-label>
                       <nz-form-item>
-                        <nz-form-control nzErrorTip="Լռացրեք տվյալ դաշտը" nzHasFeedback>
+                        <nz-form-control [nzErrorTip]="errore5" nzHasFeedback>
                           <input nz-input formControlName="car_number" attr.id="Մեքենայի համարանիշը" />
                         </nz-form-control>
                       </nz-form-item>
+                      <ng-template #errore5>
+                        <p *ngIf = "errorName('car_number')">
+                          {{errorLast}}
+                        </p>
+                      </ng-template>
                     </div>
                     <div nz-col [nzSpan]="12" class="col">
                       <nz-form-label nzRequired nzFor="Մեքենայի գույնը">Մեքենայի գույնը</nz-form-label>
@@ -162,7 +169,7 @@
                     </div>
                   </div>
                 </form>
-                <app-table></app-table>
+                <app-table [id]="driver_id" [driving]="driving"></app-table>
               </nz-tab>
             </nz-tabset>
           </div>
@@ -171,6 +178,13 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
 
 <div class="main">
   <nz-table nzSize="middle" nzBordered (nzPageIndexChange)="nzPageIndexChange($event)" [nzData]="myReq.tabelItem"
@@ -217,3 +231,4 @@
   </nz-table>
 </div>
 <app-load [style.display]="myReq.isOnLoading?'block':'none'"></app-load>
+
